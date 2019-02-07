@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<!-- These lines essentially tell the web browser, "Hey, this is a modern
+    HTML document, and I'm going to be using UTF8 (you can google it) to
+    represent text. -->
+
+<!-- What title do we want to appear on the title bar/tab -->
+<title>2D Sierpinski Gasket</title>
+
+<!-- This is a shader program written in the GLSL programming language.
+    This script specifically tells WebGL what computations to do for every
+    vertex or point that it is told to draw. -->
+<script id="vertex-shader" type="x-shader/x-vertex">
+// Specifies that this shader will be getting information.  Specifically,
+// each time this shader is run it'll be given a possibly different value
+// (indicated by the "attribute" keyword), the type of the value will be
+// "vec4" (a vector with four floating-point components), and we will access
+// it with the variable name "vPosition".
+attribute vec4 vPosition;
+
+// All shaders have a "void main" function that is the main code to be run.
+// You can additionally have other functions that do whatever you want.
+void main()
+{
+	gl_PointSize = 1.0;
+    gl_Position = vPosition;
+}
+</script>
+
+<!-- This is a shader program written in GLSL.  This program is run for every
+    pixel (or "fragment") that is drawn to the screen.  This will be
+    automatically called for every pixel, and additional information can be
+    given to this from the vertex shader. -->
+<script id="fragment-shader" type="x-shader/x-fragment">
+// Set the floating point numbers to be of "medium" precision.  Medium
+// precision has accuracy similar to "half" precision floating-point
+// numbers (or may be better, depending on platform).
+precision mediump float;
+
+void main()
+{
+    // gl_FragColor is a special variable that we store our output color to.
+    // Here, we are storing a color of (1,0,0,1) which is red (1,0,0), with
+    // full opacity (the final 1).
+    gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
+}
+</script>
+
+<!-- These lines bring in the various JavaScript libraries that we will be
+    using to make things happen.   -->
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+
+<!-- This line brings in the code we specifically wrote for this program. -->
+<script type="text/javascript" src="gasket1-annotated.js"></script>
+</head>
+
+<body>
+
+<!-- The "canvas" tag represents an area on the screen that we can draw to.
+    We give this element a specific id so that later we can use the
+    getElementById function to gain access to it from js. -->
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>
